@@ -20,16 +20,15 @@ weight=3
 while True:
     tStart=time.time()
     frame=picam2.capture_array()
-    # Create a Region of Interest (ROI) frame
-    ROI=frame[0:int(dispH/2),0:int(dispW/2)]
-    frame[int(dispH/2):,int(dispW/2):] = ROI
-    cv2.putText(frame,'ROI',(int(dispW/2),int(dispH/2)+35),font,height,myColor,weight)
+    # Create a frame for FPS
     cv2.putText(frame,str(int(fps))+' FPS',pos,font,height,myColor,weight)
+    #Show the frame
     cv2.imshow("picam2",frame)
+    # Create an if statement to break the loop
     if cv2.waitKey(1)==ord('q'):
         break
+    # Calculate the FPS
     tEnd=time.time()
     loopTime=tEnd-tStart
     fps=.9*fps +.1*(1/loopTime)
-    #print(int(fps))
 cv2.destroyAllWindows()
